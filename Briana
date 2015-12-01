@@ -181,9 +181,6 @@ namespace Databaseproject
         void deleteAssignment(string key)
         {
 
-
-          
-            {
                 SqlConnection sqlConn = new SqlConnection("server=mssql.cs.mtsu.edu;User Id=c8115901;password=zg4oDUzo;database=c8115901db");
                 SqlCommand sqlComm = new SqlCommand(key,sqlConn);
                 sqlConn.Open();
@@ -193,6 +190,5 @@ namespace Databaseproject
                 sqlComm.Parameters["@key"].Value = key;
                 sqlComm.ExecuteNonQuery();
                 sqlConn.Close();
-           }
         }
 
