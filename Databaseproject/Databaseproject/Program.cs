@@ -223,21 +223,6 @@ namespace Databaseproject
             }
 
         }
-        void deleteAssignment(string key)
-        {
-            string answer;
-            Console.WriteLine("Are you sure you want to delete {0}? y or n.", key);
-            answer = Console.ReadLine();
-            if (answer == "y")
-            {
-                Console.WriteLine("Deleting {0}...", key);
-            }
-            else
-            {
-                Console.WriteLine("Changed your mind? Returning...");   
-            }
-
-        }
         void viewAllDates()
         {
             Console.WriteLine("All Assignments dates:");
@@ -286,7 +271,7 @@ namespace Databaseproject
                string todo;
                Console.WriteLine("Please enter assignment to Delete.");
                todo = Console.ReadLine();
-               deleteAssignment(todo);
+               deleteAssignment(todo, teacher);
            }
            else if (selected == "4")
            {
@@ -664,6 +649,23 @@ namespace Databaseproject
                 studentOptions(username);
             }
 
+        }
+
+        void deleteAssignment(string key, string teacher)
+        {
+
+            SqlConnection sqlConn = new SqlConnection("server=mssql.cs.mtsu.edu;User Id=c8115901;password=zg4oDUzo;database=c8115901db");
+            SqlCommand sqlComm = new SqlCommand(key, sqlConn);
+            sqlConn.Open();
+            sqlComm = sqlConn.CreateCommand();
+            sqlComm.CommandText = String.Format("DELETE FROM CourseWork WHERE Name='{0}'",key);
+            sqlComm.Parameters.Add("@key", SqlDbType.VarChar);
+            sqlComm.Parameters["@key"].Value = key;
+            sqlComm.ExecuteNonQuery();
+            sqlConn.Close();
+            Program p = new Program();
+
+            p.teacherOptions(teacher);
         }
     }
 }

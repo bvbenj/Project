@@ -4,3 +4,9 @@
 \\filestore\c8115913\windows\documents\visual studio 2012\Projects\Databaseproject\Databaseproject\obj\Debug\Databaseproject.exe
 \\filestore\c8115913\windows\documents\visual studio 2012\Projects\Databaseproject\Databaseproject\obj\Debug\Databaseproject.pdb
 \\filestore\c8115913\windows\documents\visual studio 2012\Projects\Databaseproject\Databaseproject\obj\Debug\Databaseproject.csprojResolveAssemblyReference.cache
+T:\windows\documents\Visual Studio 2012\Projects\Project\Databaseproject\Databaseproject\bin\Debug\Databaseproject.exe.config
+T:\windows\documents\Visual Studio 2012\Projects\Project\Databaseproject\Databaseproject\obj\Debug\Databaseproject.exe
+T:\windows\documents\Visual Studio 2012\Projects\Project\Databaseproject\Databaseproject\obj\Debug\Databaseproject.pdb
+T:\windows\documents\Visual Studio 2012\Projects\Project\Databaseproject\Databaseproject\bin\Debug\Databaseproject.exe
+T:\windows\documents\Visual Studio 2012\Projects\Project\Databaseproject\Databaseproject\bin\Debug\Databaseproject.pdb
+T:\windows\documents\Visual Studio 2012\Projects\Project\Databaseproject\Databaseproject\obj\Debug\Databaseproject.csprojResolveAssemblyReference.cache
