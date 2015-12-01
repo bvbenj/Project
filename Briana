@@ -1,0 +1,198 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+//using MySql;
+//using MySql.Data.MySqlClient;
+//using MySql.Data;
+using System.Data;
+using System.Data.SqlClient;
+
+namespace Databaseproject
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string username;
+            string password;
+            //change to connection string to the right one
+
+            Console.WriteLine("Please enter username:");
+            username = Console.ReadLine();
+            while (username == "")
+            {
+                Console.WriteLine("ERROR: Please try entering username again.");
+                username = Console.ReadLine();
+            }
+
+            Console.WriteLine("Please enter password:");
+            password = Console.ReadLine();
+            while (password == "")
+            {
+                Console.WriteLine("ERROR: Please try entering username again.");
+                password = Console.ReadLine();
+            }
+
+            if (username == "teacher" && password =="teacher")
+            {
+                Program teach = new Program();
+                teach.teacherOptions();
+
+            }
+            else if (username == "student" && password =="student")
+            {
+                Program stu = new Program();
+                stu.studentOptions();
+            }
+        }
+        void doSomething()
+        {
+            SqlConnection myconnectionList = new SqlConnection("server=mssql.cs.mtsu.edu;User Id=c8115901;password=zg4oDUzo;database=c8115901db");
+            //connect to database
+            //query to check username and password
+            //SELECT * FROM USERS WHERE USERNAME = {0} AND PASSWORD = {1}, X, Y
+            string ssList = String.Format("SELECT * FROM TeacherInformation");
+            //this does something import
+            SqlDataAdapter mydataList = new SqlDataAdapter(ssList, myconnectionList);
+            DataSet mysetList = new DataSet();
+            SqlCommand cmd = new SqlCommand(ssList, myconnectionList);
+            mydataList.Fill(mysetList, "mytable");
+         
+            SqlDataReader readerList;
+            try
+            {
+                myconnectionList.Open();
+                readerList = cmd.ExecuteReader();
+                while (readerList.Read())
+                {
+                    Console.WriteLine("{0}", readerList["FirstName"]);
+                }
+            }
+            catch (Exception err)
+            {
+                Console.Write(err);
+            }
+            finally
+            {
+                myconnectionList.Close();
+            }
+
+
+        }
+        void createAssignment()
+        {
+            string year;
+            string month;
+            string day;
+            string correct;
+            Console.WriteLine("Creating assignment date...");
+            Console.WriteLine("Enter year:");
+            year = Console.ReadLine();
+            Console.WriteLine("Enter month:");
+            month = Console.ReadLine();
+            Console.WriteLine("Enter day:");
+            day = Console.ReadLine();
+
+            Console.WriteLine("{0}/{1}/{2}", day, month, year);
+            Console.WriteLine("Is this correct? y or n");
+            correct = Console.ReadLine();
+            if (correct == "y")
+            {
+                Console.WriteLine("Submitting...");
+                SqlConnection myconnectionList = new SqlConnection("server=mssql.cs.mtsu.edu;User Id=c8115901;password=zg4oDUzo;database=c8115901db");
+                //connect to database
+                //query to check username and password
+               // SELECT * FROM USERS WHERE USERNAME = {0} AND PASSWORD = {1}, X, Y
+                string ssList = "INSERT INTO CourseWork VALUES('CSCI-4560','ResearchPaper','HomeWork','12/12/2110', '12/13/2222')";
+                //this does something import
+                SqlDataAdapter mydataList = new SqlDataAdapter(ssList, myconnectionList);
+                DataSet mysetList = new DataSet();
+                SqlCommand cmd = new SqlCommand(ssList, myconnectionList);
+
+
+                SqlDataReader readerList;
+                try
+                {
+                    myconnectionList.Open();
+
+
+
+
+
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception err)
+                {
+                    Console.Write(err);
+                }
+                finally
+                {
+                    myconnectionList.Close();
+                }
+
+
+
+
+
+            }
+            else
+            {
+                Console.WriteLine("Please try again...Restarting.");
+                createAssignment();
+            }
+
+        }
+        void editAssignment()
+        {
+            string year;
+            string month;
+            string day;
+            string correct;
+            Console.WriteLine("Updating assignment date...");
+            Console.WriteLine("Enter year:");
+            year = Console.ReadLine();
+            Console.WriteLine("Enter month:");
+            month = Console.ReadLine();
+            Console.WriteLine("Enter day:");
+            day = Console.ReadLine();
+
+            Console.WriteLine("{0}/{1}/{2}", day, month, year);
+            Console.WriteLine("Is this correct? y or n");
+            correct = Console.ReadLine();
+            if (correct == "y")
+            {
+                Console.WriteLine("Submitting update...");
+
+            }
+            else if (correct == "n")
+            {
+                Console.WriteLine("Please try again...");
+                editAssignment();
+            }
+            else
+            {
+                Console.WriteLine("Incorrect input. Please try again...Restarting.");
+                createAssignment();
+            }
+
+        }
+        void deleteAssignment(string key)
+        {
+
+
+          
+            {
+                SqlConnection sqlConn = new SqlConnection("server=mssql.cs.mtsu.edu;User Id=c8115901;password=zg4oDUzo;database=c8115901db");
+                SqlCommand sqlComm = new SqlCommand(key,sqlConn);
+                sqlConn.Open();
+                sqlComm = sqlConn.CreateCommand();
+                sqlComm.CommandText = @"DELETE FROM CourseWork WHERE Name='@key'";
+                sqlComm.Parameters.Add("@key", SqlDbType.VarChar);
+                sqlComm.Parameters["@key"].Value = key;
+                sqlComm.ExecuteNonQuery();
+                sqlConn.Close();
+           }
+        }
+
